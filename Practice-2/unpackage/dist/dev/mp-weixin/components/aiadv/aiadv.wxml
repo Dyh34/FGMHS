@@ -1,0 +1,1 @@
+<view class="{{['aiadv', a && 'press']}}" bindtouchstart="{{b}}" bindtouchend="{{c}}" bindtouchcancel="{{d}}"></view>

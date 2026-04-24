@@ -1,0 +1,1 @@
+<view class="base-background"><view class="hello1"><head1 u-s="{{['d']}}" u-i="0ca4fac6-0" bind:__l="__l">早上好,董宇航</head1></view><view class="hello2"><head2 u-s="{{['d']}}" u-i="0ca4fac6-1" bind:__l="__l">健康生活，从一个小建议做起！</head2></view><aiadv u-i="0ca4fac6-2" bind:__l="__l"></aiadv></view>
