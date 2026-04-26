@@ -64,7 +64,7 @@ const isPress = ref(false)
   margin: 40rpx auto;
   width: 85%;
   border-radius: 12rpx;
-  background: #f2faf6;
+  background: white;
   padding: 30rpx;
   box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.1);
   transition: all 0.2s ease;
@@ -136,7 +136,7 @@ const isPress = ref(false)
   margin-left: auto;
   margin-top: 20rpx;
   padding: 16rpx 40rpx;
-  background: #39bc36;
+  background: #40995d;
   height: 40rpx;
   width: 100rpx;
   margin-top: 20rpx;

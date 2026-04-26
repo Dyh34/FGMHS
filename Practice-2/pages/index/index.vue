@@ -130,9 +130,9 @@
   min-height: 100vh;
   background-image: linear-gradient(
     to top left,
-    rgba(255, 255, 255, 0),
-    rgba(242, 255, 246, 0.8),
-    rgba(208, 240, 214, 0.8)
+    rgba(252, 253, 252, 1.0),
+    rgba(244, 248, 245, 1.0),
+    rgba(224, 241, 225, 1.0)
   );
   .phs{ 
 	  flex-direction: row;

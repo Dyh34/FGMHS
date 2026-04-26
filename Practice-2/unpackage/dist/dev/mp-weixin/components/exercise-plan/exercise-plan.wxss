@@ -23,47 +23,48 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.base-background {
+.exercise-plan {
+  margin-top: 20rpx;
+  padding: 20rpx;
+  background-color: white;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+}
+.exercise-plan .plan-title {
   display: flex;
-  flex-direction: column;
-  padding: 15px;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+.exercise-plan .plan-title .title-icon {
+  font-size: 32rpx;
+  margin-right: 12rpx;
+}
+.exercise-plan .plan-title .title-text {
+  font-size: 28rpx;
+  font-weight: 600;
   color: #333;
-  min-height: 100vh;
-  background-image: linear-gradient(to top left, #fcfdfc, #f4f8f5, #e0f1e1);
 }
-.base-background .phs {
-  flex-direction: row;
-  height: 520rpx;
-  -webkit-appearance: none;
+.exercise-plan .plan-content .plan-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12rpx;
 }
-.base-background .phs .phbox {
-  white-space: nowrap;
+.exercise-plan .plan-content .plan-item .item-dot {
+  width: 12rpx;
+  height: 12rpx;
+  background-color: #2196F3;
+  border-radius: 50%;
+  margin-top: 8rpx;
+  margin-right: 12rpx;
 }
-.base-background .phs .phbox .inlineph {
-  display: inline-block;
+.exercise-plan .plan-content .plan-item .item-content {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 36rpx;
 }
-.base-background .hello1 {
-  height: 60rpx;
-  width: 100%;
-  font-size: 35rpx;
-  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-weight: 700;
-  letter-spacing: 6rpx;
-  text-shadow: 0 1rpx 1rpx #999;
-}
-.base-background .hello2 {
-  width: 100%;
-  font-size: 25rpx;
+.exercise-plan .plan-content .plan-empty {
+  font-size: 24rpx;
   color: #999;
-}
-.base-background .scroll-container {
-  flex: 1;
-  padding-bottom: 100rpx;
-}
-.base-background .bottom-space {
-  height: 90rpx;
-}
-.container {
-  width: 100%;
-  min-height: 20rpx;
+  text-align: center;
+  padding: 20rpx 0;
 }
