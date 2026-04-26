@@ -1,0 +1,1 @@
+{"version":3,"file":"assisit.js","sources":["../../../../Hbuilder/HBuilderX/plugins/uniapp-cli-vite/uniPage:/cGFnZXMvYXNzaXNpdC9hc3Npc2l0LnZ1ZQ"],"sourcesContent":["import MiniProgramPage from 'D:/HBproject/P3/FGMHS/Practice-2/pages/assisit/assisit.vue'\nwx.createPage(MiniProgramPage)"],"names":[],"mappings":";;;;;;;AACA,GAAG,WAAW,eAAe;"}

@@ -23,14 +23,42 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.hea {
+  margin-left: 40rpx;
+  margin-top: 20rpx;
+  font-weight: 600;
+}
+.conte {
+  display: flex;
+  align-items: center;
+  margin-left: 40rpx;
+  margin-top: 20rpx;
+}
+.conte .title1 {
+  width: 100%;
+}
+.conte .title1 head2 {
+  margin-left: 10rpx;
+  font-size: 25rpx;
+  font-weight: 600;
+}
+.text-box {
+  height: 90rpx;
+  width: 550rpx;
+  margin-left: 50rpx;
+  margin-top: 20rpx;
+  font-size: 23rpx;
+  font-weight: 500;
+}
 .aiadv {
   margin-top: 40rpx;
-  width: 100%;
-  border: 1rpx #cfe3d2;
+  width: 92%;
+  margin-left: 20rpx;
+  border: 1rpx solid #b0e3ad;
   box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
-  height: 400rpx;
+  height: 380rpx;
   border-radius: 3%;
-  background-color: white;
+  background: linear-gradient(to top right, #ffffff, #f4fff3, #e7ffef);
   transition: transform 0.2s ease;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent !important;
@@ -39,4 +67,18 @@
   transform: scale(1.05);
   /* 缩到95% */
   box-shadow: 0 8rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+.detail-btn {
+  height: 60rpx;
+  width: 160rpx;
+  margin-left: auto;
+  margin-top: 20rpx;
+  border-radius: 30rpx;
+  background-color: #39bc36;
+  align-items: center;
+  justify-content: center;
+  font-size: 20rpx;
+  color: #fff;
+  margin-top: 60rpx;
+  margin-left: 450rpx;
 }
