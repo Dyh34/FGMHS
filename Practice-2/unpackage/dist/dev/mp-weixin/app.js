@@ -6,6 +6,7 @@ if (!Math) {
   "./pages/me/me.js";
   "./pages/assisit/assisit.js";
   "./pages/market/market.js";
+  "./pages/index/phydetail/phydetail/phydetail.js";
 }
 const _sfc_main = {
   onLaunch: function() {

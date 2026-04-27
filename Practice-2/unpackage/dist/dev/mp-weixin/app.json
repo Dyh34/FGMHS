@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/me/me",
     "pages/assisit/assisit",
-    "pages/market/market"
+    "pages/market/market",
+    "pages/index/phydetail/phydetail/phydetail"
   ],
   "window": {
     "navigationBarTextStyle": "black",

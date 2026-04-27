@@ -4,7 +4,9 @@
 			@touchstart="isPress = true"
 			@touchend="isPress = false"
 			@touchcancel="isPress = false">
-			<view class="toptip"><head1 class="h1">{{faph.name}}:身体状态概览</head1></view>
+			
+		
+			<view class="toptip" style="justify-content: space-between;"><head1 class="h1">{{faph.name}}:身体状态概览</head1><view style="margin-right: 20rpx;" @click="goto">详情</view></view>
 			<view class="aa1">
 				<view class="tubiao1">
 					<img class="tubiaoa" src="/static/tubiao/c.png" />
@@ -72,6 +74,11 @@
 			
 		
 	})
+	const goto=()=>{
+		uni.navigateTo({
+			url:"/pages/index/phydetail/phydetail/phydetail"
+		})
+	}
 </script>
 
 <style lang="scss">

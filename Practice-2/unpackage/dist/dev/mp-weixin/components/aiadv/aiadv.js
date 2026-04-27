@@ -14,7 +14,7 @@ if (!Array) {
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_assets._imports_0$1,
+    a: common_assets._imports_0$2,
     b: _ctx.isPress ? 1 : "",
     c: common_vendor.o(($event) => _ctx.isPress = true, "72"),
     d: common_vendor.o(($event) => _ctx.isPress = false, "ce"),
