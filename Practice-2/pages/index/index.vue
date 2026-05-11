@@ -2,7 +2,7 @@
   <view class="base-background">
     <scroll-view scroll-y="true" class="scroll-container">
       <view class="hello1">
-        <head1>早上好,董宇航</head1>
+        <weatheremoj></weatheremoj>
       </view>
       <view class="hello2">
         <head2>健康生活，从一个小建议做起！</head2>
@@ -18,7 +18,8 @@
 		  </view>
 	  	
 	  </scroll-view>
-	  <aiadv></aiadv>
+	  <aiadv @openDetail="showDetail=true" @click="test"></aiadv>
+	  <aiadvDetail :showDetail="showDetail" @closeDetail="showDetail=false"></aiadvDetail>
 	  
 	  <view class="container">
 	     
@@ -41,6 +42,15 @@
   </view>
 </template>
 <script setup>
+	import { ref } from 'vue'
+	import AiAdv from '@/components/aiadv/aiadv.vue'
+	import AIDetail from '@/components/aiadvDetail/aiadvDetail.vue'
+	
+	const showDetail = ref(false)
+	const test=()=>{
+		console.log(showDetail.value)
+	}
+	
 	const faphlist=[
 		{
 		name:"董宇航",
@@ -120,6 +130,14 @@
 							url: "/static/tubiao/ad3.png" 
 						}
 					]
+					wx.getLocation({
+					 type: 'wgs84',
+					 success (res) {
+					   const latitude = res.latitude
+					   const longitude = res.longitude
+					  // console.log(latitude,longitude)
+					 }
+					})
 </script>
 <style lang="scss">
 .base-background {
@@ -137,7 +155,7 @@
   .phs{ 
 	  flex-direction: row;
 		// border:3rpx solid #333;
-		height: 520rpx;
+		height: 300rpx;
 		-webkit-appearance: none;
 		
 	  .phbox{

@@ -1,8 +1,10 @@
 {
   "navigationBarTitleText": "uni-app",
   "usingComponents": {
+    "weatheremoj": "../../components/weatheremoj/weatheremoj",
     "phdata": "../../components/phdata/phdata",
     "aiadv": "../../components/aiadv/aiadv",
+    "aiadv-detail": "../../components/aiadvDetail/aiadvDetail",
     "missionto": "../../components/missionto/missionto",
     "adshow": "../../components/adshow/adshow"
   }

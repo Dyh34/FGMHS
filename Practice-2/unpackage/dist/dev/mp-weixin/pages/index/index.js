@@ -1,24 +1,31 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 if (!Array) {
-  const _component_head1 = common_vendor.resolveComponent("head1");
+  const _easycom_weatheremoj2 = common_vendor.resolveComponent("weatheremoj");
   const _component_head2 = common_vendor.resolveComponent("head2");
   const _easycom_phdata2 = common_vendor.resolveComponent("phdata");
   const _easycom_aiadv2 = common_vendor.resolveComponent("aiadv");
+  const _easycom_aiadvDetail2 = common_vendor.resolveComponent("aiadvDetail");
   const _easycom_missionto2 = common_vendor.resolveComponent("missionto");
   const _easycom_adshow2 = common_vendor.resolveComponent("adshow");
-  (_component_head1 + _component_head2 + _easycom_phdata2 + _easycom_aiadv2 + _easycom_missionto2 + _easycom_adshow2)();
+  (_easycom_weatheremoj2 + _component_head2 + _easycom_phdata2 + _easycom_aiadv2 + _easycom_aiadvDetail2 + _easycom_missionto2 + _easycom_adshow2)();
 }
+const _easycom_weatheremoj = () => "../../components/weatheremoj/weatheremoj.js";
 const _easycom_phdata = () => "../../components/phdata/phdata.js";
 const _easycom_aiadv = () => "../../components/aiadv/aiadv.js";
+const _easycom_aiadvDetail = () => "../../components/aiadvDetail/aiadvDetail.js";
 const _easycom_missionto = () => "../../components/missionto/missionto.js";
 const _easycom_adshow = () => "../../components/adshow/adshow.js";
 if (!Math) {
-  (_easycom_phdata + _easycom_aiadv + _easycom_missionto + _easycom_adshow)();
+  (_easycom_weatheremoj + _easycom_phdata + _easycom_aiadv + _easycom_aiadvDetail + _easycom_missionto + _easycom_adshow)();
 }
 const _sfc_main = {
   __name: "index",
   setup(__props) {
+    const showDetail = common_vendor.ref(false);
+    const test = () => {
+      common_vendor.index.__f__("log", "at pages/index/index.vue:51", showDetail.value);
+    };
     const faphlist = [
       {
         name: "董宇航",
@@ -116,6 +123,13 @@ const _sfc_main = {
         url: "/static/tubiao/ad3.png"
       }
     ];
+    common_vendor.wx$1.getLocation({
+      type: "wgs84",
+      success(res) {
+        res.latitude;
+        res.longitude;
+      }
+    });
     return (_ctx, _cache) => {
       return {
         a: common_vendor.f(faphlist, (i, index, i0) => {
@@ -127,16 +141,22 @@ const _sfc_main = {
             })
           };
         }),
-        b: common_vendor.f(faphlist, (item, index, i0) => {
+        b: common_vendor.o(($event) => showDetail.value = true, "17"),
+        c: common_vendor.o(test, "86"),
+        d: common_vendor.o(($event) => showDetail.value = false, "bb"),
+        e: common_vendor.p({
+          showDetail: showDetail.value
+        }),
+        f: common_vendor.f(faphlist, (item, index, i0) => {
           return {
             a: index,
-            b: "77f22a78-4-" + i0,
+            b: "77f22a78-5-" + i0,
             c: common_vendor.p({
               faph: item
             })
           };
         }),
-        c: common_vendor.p({
+        g: common_vendor.p({
           adshow: adData
         })
       };

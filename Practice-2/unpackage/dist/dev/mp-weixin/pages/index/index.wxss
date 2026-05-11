@@ -33,7 +33,7 @@
 }
 .base-background .phs {
   flex-direction: row;
-  height: 520rpx;
+  height: 300rpx;
   -webkit-appearance: none;
 }
 .base-background .phs .phbox {

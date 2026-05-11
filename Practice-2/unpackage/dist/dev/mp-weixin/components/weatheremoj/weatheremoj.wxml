@@ -1,0 +1,1 @@
+<view class="weather-box data-v-dc78d0f3"><view class="greet data-v-dc78d0f3">{{a}}, {{b}}! {{c}}</view></view>

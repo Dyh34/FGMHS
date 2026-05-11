@@ -15,23 +15,36 @@
 				
 			</view>
 			 <view class="text-box">
-				              今日身体状态整体平稳，日常建议多补充温水，保证每日充足睡眠；
-				              日常减少高油高盐饮食，三餐清淡为主；
-				              空闲时适度散步拉伸，舒缓身体疲惫，保持规律作息与良好作息节律。
+				              {{aitxt}}
 				  </view>
 				  
-				  <button class="detail-btn">查看详情</button>
+				  <button class="detail-btn" @click="detail">查看详情</button>
 		</view>
 </template>
 
-<script>
-	export default {
-		name:"aiavi",
-		data() {
-			return {
-				
-			};
-		}
+<script setup>
+import { ref,onMounted } from 'vue';
+
+	const aitxt = ref("AI正在分析...")
+	const aireturn = async()=>{
+		const aite = await uni.request({
+			url:"http://10.93.233.3:8080/index/ai",
+			method:"GET"
+		})
+		aitxt.value = aite.data
+	}
+	
+	onMounted(()=>{
+	
+		aireturn()
+	
+	})
+	
+	const emit = defineEmits(['openDetail'])
+
+	const detail = ()=>{
+		emit('openDetail')
+		console.log("点击")
 	}
 </script>
 
