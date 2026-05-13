@@ -7112,7 +7112,7 @@ function isConsoleWritable() {
 function initRuntimeSocketService() {
   const hosts = "10.93.233.3,127.0.0.1";
   const port = "8090";
-  const id = "mp-weixin_9jvr6j";
+  const id = "mp-weixin_KlryDB";
   const lazy = typeof swan !== "undefined";
   let restoreError = lazy ? () => {
   } : initOnError();
@@ -8059,10 +8059,12 @@ const createSubpackageApp = initCreateSubpackageApp();
   wx.createSubpackageApp = global.createSubpackageApp = createSubpackageApp;
 }
 exports._export_sfc = _export_sfc;
+exports.computed = computed;
 exports.createSSRApp = createSSRApp;
 exports.e = e;
 exports.f = f;
 exports.index = index;
+exports.nextTick$1 = nextTick$1;
 exports.o = o;
 exports.onMounted = onMounted;
 exports.p = p;

@@ -1,1 +1,0 @@
-<view class="asitotal"><scroll-view scroll-y="true"><view class="asititle"><head1 u-s="{{['d']}}" u-i="b8df26e8-0" bind:__l="__l">AI健康报告</head1></view><pinfen wx:if="{{a}}" u-i="b8df26e8-1" bind:__l="__l" u-p="{{a}}"/></scroll-view></view>

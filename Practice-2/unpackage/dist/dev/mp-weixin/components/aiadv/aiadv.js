@@ -13,7 +13,7 @@ const _sfc_main = {
     const aitxt = common_vendor.ref("AI正在分析...");
     const aireturn = async () => {
       const aite = await common_vendor.index.request({
-        url: "http://10.93.233.3:8080/index/ai",
+        url: "http://localhost/index/ai",
         method: "GET"
       });
       aitxt.value = aite.data;

@@ -13,23 +13,30 @@
 			}
 		},
 		{
-			"path": "pages/assisit/assisit",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		{
 			"path": "pages/market/market",
 			"style": {
 				"navigationBarTitleText": ""
 			}
 		},
 		{
-			"path": "pages/index/phydetail/phydetail/phydetail",
+			"path": "pages/phydetail/phydetail",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/indexComponentsPages/AIGuidanceDiagnosis/AIGuidanceDiagnosis",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/indexComponentsPages/FamilyDoctor/FamilyDoctor/FamilyDoctor",
 			"style": {
 				"navigationBarTitleText": ""
 			}
 		}
+
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -50,9 +57,9 @@
 				"text": "首页"
 			},
 			{
-				"pagePath": "pages/assisit/assisit",
+				"pagePath": "pages/phydetail/phydetail",
 				"iconPath": "/static/tubiao/2.png",
-				"text": "助理"
+				"text": "家庭"
 			},
 			{
 				"pagePath": "pages/market/market",

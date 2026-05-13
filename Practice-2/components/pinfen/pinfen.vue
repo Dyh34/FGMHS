@@ -1,5 +1,4 @@
 <template>
-	
 	<view class="pingfen">
 		<view class="ptitle">
 			{{ title }}
@@ -9,23 +8,24 @@
 				<view class="z1a">
 					{{ totalScore }}
 				</view>
-				<view class="z1b">
-					分
-				</view>
+				<view class="z1b">分</view>
 			</view>
 			<view class="z2">
-				<view class="z2a">
-					良好
-				</view>
+				<view class="z2a">良好</view>
 			</view>
 		</view>
 		<view class="tu">
 			<view class="radar-container">
 				<!-- 雷达图网格 -->
 				<view class="radar-grid">
-					<view class="radar-layer" v-for="level in 3" :key="level" :style="{ transform: `scale(${level * 0.33})` }"></view>
+					<view
+						class="radar-layer"
+						v-for="level in 3"
+						:key="level"
+						:style="{ transform: `scale(${level * 0.33})` }"
+					></view>
 				</view>
-				
+
 				<!-- 固定的文字标签和值 -->
 				<view class="radar-corner top">
 					<view class="radar-item-box">
@@ -57,43 +57,42 @@
 						<view class="radar-value">{{ radarData[4].value }}</view>
 					</view>
 				</view>
-				
+
 				<!-- 数据多边形 -->
 				<view class="radar-polygon" :style="{ clipPath: getPolygonPath() }"></view>
-				
+
 				<!-- 连接线 -->
 				<view class="radar-lines">
-					<view v-for="(item, index) in radarData" :key="index" class="radar-line" :style="getLineStyle(index)"></view>
+					<view
+						v-for="(item, index) in radarData"
+						:key="index"
+						class="radar-line"
+						:style="getLineStyle(index)"
+					></view>
 				</view>
 			</view>
 		</view>
 
-		<!-- 计划组件 -->
-		<view class="plans-container">
-			<diet-plan :planItems="dietPlan" />
-			<exercise-plan :planItems="exercisePlan" />
-			<life-plan :planItems="lifePlan" />
+		<!-- 超时/错误重试覆盖层 -->
+		<view v-if="showRetry" class="retry-overlay" @click="retryFetch">
+			<view class="retry-box">
+				<text class="retry-icon">⚠️</text>
+				<text class="retry-text">连接服务器超时</text>
+				<text class="retry-hint">点击屏幕重试</text>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import dietPlan from '../diet-plan/diet-plan.vue';
-	import exercisePlan from '../exercise-plan/exercise-plan.vue';
-	import lifePlan from '../life-plan/life-plan.vue';
-
 	export default {
 		name: "pinfen",
-		components: {
-			dietPlan,
-			exercisePlan,
-			lifePlan
-		},
 		props: {
 			title: {
 				type: String,
 				default: '本周健康评分'
 			},
+			// 保留外部传入能力，以便在没有网络时仍可展示默认数据
 			categories: {
 				type: Array,
 				default: () => ['睡眠', '运动', '饮食', '心率', '饮水']
@@ -101,54 +100,95 @@
 			scoreData: {
 				type: Array,
 				default: () => [83, 78, 82, 90, 87]
-			},
-			dietPlan: {
-				type: Array,
-				default: () => []
-			},
-			exercisePlan: {
-				type: Array,
-				default: () => []
-			},
-			lifePlan: {
-				type: Array,
-				default: () => []
+			}
+		},
+		data() {
+			return {
+				httpRadarData: [],      // HTTP 获取的雷达数据
+				showRetry: false,       // 是否显示重试遮罩
+				loading: false
 			}
 		},
 		computed: {
-			totalScore() {
-				if (this.scoreData && this.scoreData.length > 0) {
-					const sum = this.scoreData.reduce((acc, val) => acc + val, 0);
-					return Math.round(sum / this.scoreData.length);
-				}
-				return 0;
-			},
+			// 优先使用 HTTP 数据，若无则回退到 props
 			radarData() {
+				if (this.httpRadarData.length > 0) {
+					return this.httpRadarData
+				}
 				return this.categories.map((category, index) => ({
 					label: category,
 					value: this.scoreData[index] || 0,
 					ratio: (this.scoreData[index] || 0) / 100
-				}));
+				}))
+			},
+			totalScore() {
+				const data = this.radarData
+				if (data && data.length > 0) {
+					const sum = data.reduce((acc, item) => acc + item.value, 0)
+					return Math.round(sum / data.length)
+				}
+				return 0
 			}
 		},
+		mounted() {
+			this.fetchRadarData()
+		},
 		methods: {
+			// 模拟 HTTP 请求（带超时控制）
+			async fetchRadarData() {
+				this.showRetry = false
+				this.loading = true
+				try {
+					// 模拟请求，设置 3 秒超时
+					const data = await Promise.race([
+						this.mockHttpRequest(),
+						new Promise((_, reject) =>
+							setTimeout(() => reject(new Error('timeout')), 3000)
+						)
+					])
+					this.httpRadarData = data
+				} catch (e) {
+					console.error('获取雷达图数据失败', e)
+					// 失败时显示重试遮罩，不清空原有数据
+					this.showRetry = true
+				} finally {
+					this.loading = false
+				}
+			},
+			// 模拟 HTTP 请求返回占位数据
+			mockHttpRequest() {
+				return new Promise((resolve) => {
+					setTimeout(() => {
+						// 模拟后端返回
+						resolve([
+							{ label: '睡眠', value: 91, ratio: 0.91 },
+							{ label: '情绪', value: 84, ratio: 0.84 },
+							{ label: '运动', value: 78, ratio: 0.78 },
+							{ label: '饮食', value: 88, ratio: 0.88 },
+							{ label: '心率', value: 93, ratio: 0.93 }
+						])
+					}, 500) // 模拟正常响应 500ms，若改为3500可触发超时
+				})
+			},
+			// 重试点击
+			retryFetch() {
+				this.fetchRadarData()
+			},
 			getLineStyle(index) {
-				// 计算角度，确保最上方的线笔直向上
-				const angle = (index * 72) * Math.PI / 180 - Math.PI / 2-50;
+				const angle = (index * 72) * Math.PI / 180 - Math.PI / 2 - 50
 				return {
 					transform: `rotate(${angle}rad)`
-				};
+				}
 			},
 			getPolygonPath() {
 				const points = this.radarData.map((item, index) => {
-					// 计算角度，确保与线条角度一致
-					const angle = (index * 72) * Math.PI / 180 - Math.PI / 2;
-					const radius = 180 * item.ratio;
-					const x = 50 + (Math.cos(angle) * radius / 360) * 100;
-					const y = 50 + (Math.sin(angle) * radius / 360) * 100;
-					return `${x}% ${y}%`;
-				});
-				return `polygon(${points.join(', ')})`;
+					const angle = (index * 72) * Math.PI / 180 - Math.PI / 2
+					const radius = 180 * item.ratio
+					const x = 50 + (Math.cos(angle) * radius / 360) * 100
+					const y = 50 + (Math.sin(angle) * radius / 360) * 100
+					return `${x}% ${y}%`
+				})
+				return `polygon(${points.join(', ')})`
 			}
 		}
 	}
@@ -156,16 +196,17 @@
 
 <style lang="scss">
 	.pingfen {
-		margin-left: 60rpx;
-		margin-top: 40rpx;
-		width: 85%;
+		position: relative; /* 确保重试遮罩定位基准 */
+		margin-left: 5rpx;
+		margin-top: 10rpx;
+		width: 100%;
 		border: #fff solid 2rpx;
 		border-radius: 2%;
 		height: 750rpx;
 		background-color: white;
 
 		.ptitle {
-			margin-left: 30rpx;
+			margin-left: 5rpx;
 			margin-top: 20rpx;
 			font-weight: 600;
 			font-size: 29rpx;
@@ -347,11 +388,40 @@
 					}
 				}
 			}
-
-			.plans-container {
-				margin-top: 30rpx;
-				padding: 0 20rpx 20rpx;
-			}
-			}
 		}
+
+		/* 重试覆盖层样式 */
+		.retry-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(255, 255, 255, 0.85);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 10;
+			border-radius: inherit;
+		}
+		.retry-box {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.retry-icon {
+			font-size: 60rpx;
+			margin-bottom: 20rpx;
+		}
+		.retry-text {
+			font-size: 30rpx;
+			color: #333;
+			margin-bottom: 12rpx;
+			font-weight: 500;
+		}
+		.retry-hint {
+			font-size: 24rpx;
+			color: #888;
+		}
+	}
 </style>

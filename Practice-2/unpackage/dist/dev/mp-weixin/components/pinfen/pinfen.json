@@ -1,8 +1,4 @@
 {
   "component": true,
-  "usingComponents": {
-    "diet-plan": "../diet-plan/diet-plan",
-    "exercise-plan": "../exercise-plan/exercise-plan",
-    "life-plan": "../life-plan/life-plan"
-  }
+  "usingComponents": {}
 }

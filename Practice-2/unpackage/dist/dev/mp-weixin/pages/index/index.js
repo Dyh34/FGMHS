@@ -2,166 +2,129 @@
 const common_vendor = require("../../common/vendor.js");
 if (!Array) {
   const _easycom_weatheremoj2 = common_vendor.resolveComponent("weatheremoj");
-  const _component_head2 = common_vendor.resolveComponent("head2");
-  const _easycom_phdata2 = common_vendor.resolveComponent("phdata");
-  const _easycom_aiadv2 = common_vendor.resolveComponent("aiadv");
-  const _easycom_aiadvDetail2 = common_vendor.resolveComponent("aiadvDetail");
-  const _easycom_missionto2 = common_vendor.resolveComponent("missionto");
-  const _easycom_adshow2 = common_vendor.resolveComponent("adshow");
-  (_easycom_weatheremoj2 + _component_head2 + _easycom_phdata2 + _easycom_aiadv2 + _easycom_aiadvDetail2 + _easycom_missionto2 + _easycom_adshow2)();
+  _easycom_weatheremoj2();
 }
 const _easycom_weatheremoj = () => "../../components/weatheremoj/weatheremoj.js";
-const _easycom_phdata = () => "../../components/phdata/phdata.js";
-const _easycom_aiadv = () => "../../components/aiadv/aiadv.js";
-const _easycom_aiadvDetail = () => "../../components/aiadvDetail/aiadvDetail.js";
-const _easycom_missionto = () => "../../components/missionto/missionto.js";
-const _easycom_adshow = () => "../../components/adshow/adshow.js";
 if (!Math) {
-  (_easycom_weatheremoj + _easycom_phdata + _easycom_aiadv + _easycom_aiadvDetail + _easycom_missionto + _easycom_adshow)();
+  _easycom_weatheremoj();
 }
 const _sfc_main = {
   __name: "index",
   setup(__props) {
-    const showDetail = common_vendor.ref(false);
-    const test = () => {
-      common_vendor.index.__f__("log", "at pages/index/index.vue:51", showDetail.value);
-    };
-    const faphlist = [
-      {
-        name: "董宇航",
-        xueXing: "A",
-        changJianDu: "常见",
-        changState: "3",
-        guoMingYuan: "没有钱",
-        yanZhong: "严重",
-        yanState: "1",
-        jianKang: "无疾病",
-        jiyanZhong: "健康",
-        jiState: "3",
-        aiJianYi: "少吃饭",
-        aiyanZhong: "适中",
-        aiState: "2",
-        waterNum: 5,
-        // 当前喝水
-        waterTotal: 8,
-        // 目标喝水
-        stepNum: 6800,
-        // 当前步数
-        stepTotal: 1e4,
-        // 目标步数
-        sleepNum: 7.5,
-        // 当前睡眠
-        sleepTotal: 8
-        // 目标睡眠,
-      },
-      {
-        name: "董宇航",
-        xueXing: "A",
-        changJianDu: "常见",
-        changState: "3",
-        guoMingYuan: "没有钱",
-        yanZhong: "严重",
-        yanState: "1",
-        jianKang: "无疾病",
-        jiyanZhong: "健康",
-        jiState: "3",
-        aiJianYi: "少吃饭",
-        aiyanZhong: "适中",
-        aiState: "2",
-        waterNum: 5,
-        // 当前喝水
-        waterTotal: 8,
-        // 目标喝水
-        stepNum: 6800,
-        // 当前步数
-        stepTotal: 1e4,
-        // 目标步数
-        sleepNum: 7.5,
-        // 当前睡眠
-        sleepTotal: 8
-        // 目标睡眠,
-      },
-      {
-        name: "董宇航",
-        xueXing: "A",
-        changJianDu: "常见",
-        changState: "3",
-        guoMingYuan: "没有钱",
-        yanZhong: "严重",
-        yanState: "1",
-        jianKang: "无疾病",
-        jiyanZhong: "健康",
-        jiState: "3",
-        aiJianYi: "少吃饭",
-        aiyanZhong: "适中",
-        aiState: "2",
-        waterNum: 5,
-        // 当前喝水
-        waterTotal: 8,
-        // 目标喝水
-        stepNum: 6800,
-        // 当前步数
-        stepTotal: 1e4,
-        // 目标步数
-        sleepNum: 7.5,
-        // 当前睡眠
-        sleepTotal: 8
-        // 目标睡眠,
-      }
-    ];
-    const adData = [
-      {
-        adname: "a1",
-        url: "/static/tubiao/ad1.png"
-      },
-      {
-        adname: "a2",
-        url: "/static/tubiao/ad2.png"
-      },
-      {
-        adname: "a3",
-        url: "/static/tubiao/ad3.png"
-      }
-    ];
-    common_vendor.wx$1.getLocation({
-      type: "wgs84",
-      success(res) {
-        res.latitude;
-        res.longitude;
-      }
+    const banners = common_vendor.ref([
+      { url: "/static/banner1.png", tag: "限时活动", link: "" },
+      { url: "/static/banner2.png", tag: "健康课堂", link: "" },
+      { url: "/static/banner3.png", tag: "会员福利", link: "" }
+    ]);
+    const serviceList = common_vendor.ref([
+      { name: "AI导诊", icon: "/static/icon/ai.png", page: "/pages/indexComponentsPages/AIGuidanceDiagnosis/AIGuidanceDiagnosis" },
+      { name: "家庭医生", icon: "/static/icon/doctor.png", page: "/pages/family-doctor/list" },
+      { name: "家庭群聊", icon: "/static/icon/chat.png", page: "/pages/family-chat/chat" },
+      { name: "医疗地图", icon: "/static/icon/map.png", page: "/pages/medical-map/map" },
+      { name: "运动计划", icon: "/static/icon/sport.png", page: "/pages/exercise-plan/plan" },
+      { name: "养生贴士", icon: "/static/icon/tips.png", page: "/pages/health-tips/tips" },
+      { name: "用药提醒", icon: "/static/icon/med.png", page: "/pages/med-remind/remind" },
+      { name: "健康档案", icon: "/static/icon/file.png", page: "/pages/health-record/record" },
+      { name: "疫苗预约", icon: "/static/icon/vaccine.png", page: "/pages/vaccine/vaccine" },
+      { name: "体检报告", icon: "/static/icon/report.png", page: "/pages/report/report" }
+    ]);
+    const lifeReminder = common_vendor.ref({
+      suggestions: [
+        {
+          category: "饮食建议",
+          content: "林建国（父亲）建议多吃橙子、猕猴桃等富含维C的水果；陈秀英（母亲）需增加钙质摄入，每日一杯牛奶。"
+        },
+        {
+          category: "运动建议",
+          content: "全家可进行餐后散步30分钟；林小宇（孩子）每天跳绳10分钟以增强体质。"
+        },
+        {
+          category: "生活习惯",
+          content: "近期天气干燥，建议卧室使用加湿器；睡前1小时远离手机，改善睡眠质量。"
+        }
+      ],
+      hasNewRecord: true,
+      medication: "林小宇（孩子）需按时服用小儿氨酚黄那敏颗粒，每日3次，每次半包，饭后服用。",
+      doctorNote: "多休息，多喝温水，避免剧烈运动，若体温超过38.5℃请及时就医。",
+      updateTime: "2026-05-13 10:30"
     });
+    const articles = common_vendor.ref([
+      { title: "春季过敏高发，如何科学防护？", source: "健康报", time: "2小时前", thumb: "/static/article1.png", id: 1 },
+      { title: "每天走多少步最健康？最新研究来了", source: "生命时报", time: "5小时前", thumb: "/static/article2.png", id: 2 },
+      { title: "这5种蔬菜生吃营养翻倍，别再炒了", source: "丁香医生", time: "昨天", thumb: "/static/article3.png", id: 3 },
+      { title: "中老年关节养护指南：别让膝盖提前退休", source: "健康时报", time: "昨天", thumb: "/static/article4.png", id: 4 },
+      { title: "熬夜后如何快速恢复？医生给出3条建议", source: "果壳病人", time: "前天", thumb: "/static/article5.png", id: 5 }
+    ]);
+    const handleBanner = (item) => {
+      if (item.link) {
+        common_vendor.index.navigateTo({ url: item.link });
+      } else {
+        common_vendor.index.showToast({ title: "活动详情开发中", icon: "none" });
+      }
+    };
+    const handleService = (item) => {
+      if (item.page) {
+        common_vendor.index.navigateTo({ url: item.page });
+        common_vendor.index.__f__("log", "at pages/index/index.vue:134", item.page);
+      } else {
+        common_vendor.index.showToast({ title: `${item.name}即将上线`, icon: "none" });
+      }
+    };
+    const handleArticle = (article) => {
+      common_vendor.index.showToast({ title: `查看文章：${article.title}`, icon: "none" });
+    };
+    const handleMoreArticle = () => {
+      common_vendor.index.showToast({ title: "进入健康资讯列表", icon: "none" });
+    };
     return (_ctx, _cache) => {
-      return {
-        a: common_vendor.f(faphlist, (i, index, i0) => {
+      return common_vendor.e({
+        a: common_vendor.f(banners.value, (item, idx, i0) => {
+          return common_vendor.e({
+            a: item.url,
+            b: item.tag
+          }, item.tag ? {
+            c: common_vendor.t(item.tag)
+          } : {}, {
+            d: idx,
+            e: common_vendor.o(($event) => handleBanner(item), idx)
+          });
+        }),
+        b: common_vendor.f(serviceList.value, (item, idx, i0) => {
           return {
-            a: index,
-            b: "77f22a78-2-" + i0,
-            c: common_vendor.p({
-              faph: i
-            })
+            a: item.icon,
+            b: common_vendor.t(item.name),
+            c: idx,
+            d: common_vendor.o(($event) => handleService(item), idx)
           };
         }),
-        b: common_vendor.o(($event) => showDetail.value = true, "17"),
-        c: common_vendor.o(test, "86"),
-        d: common_vendor.o(($event) => showDetail.value = false, "bb"),
-        e: common_vendor.p({
-          showDetail: showDetail.value
-        }),
-        f: common_vendor.f(faphlist, (item, index, i0) => {
+        c: common_vendor.f(lifeReminder.value.suggestions, (item, i, i0) => {
           return {
-            a: index,
-            b: "77f22a78-5-" + i0,
-            c: common_vendor.p({
-              faph: item
-            })
+            a: common_vendor.t(item.category),
+            b: common_vendor.t(item.content),
+            c: i
           };
         }),
-        g: common_vendor.p({
-          adshow: adData
-        })
-      };
+        d: lifeReminder.value.hasNewRecord
+      }, lifeReminder.value.hasNewRecord ? {
+        e: common_vendor.t(lifeReminder.value.medication),
+        f: common_vendor.t(lifeReminder.value.doctorNote)
+      } : {}, {
+        g: common_vendor.t(lifeReminder.value.updateTime),
+        h: common_vendor.f(articles.value, (article, idx, i0) => {
+          return {
+            a: common_vendor.t(article.title),
+            b: common_vendor.t(article.source),
+            c: common_vendor.t(article.time),
+            d: article.thumb,
+            e: idx,
+            f: common_vendor.o(($event) => handleArticle(article), idx)
+          };
+        }),
+        i: common_vendor.o(handleMoreArticle, "64")
+      });
     };
   }
 };
-wx.createPage(_sfc_main);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"]]);
+wx.createPage(MiniProgramPage);
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/index/index.js.map

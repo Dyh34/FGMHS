@@ -1,20 +1,13 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const dietPlan = () => "../diet-plan/diet-plan.js";
-const exercisePlan = () => "../exercise-plan/exercise-plan.js";
-const lifePlan = () => "../life-plan/life-plan.js";
 const _sfc_main = {
   name: "pinfen",
-  components: {
-    dietPlan,
-    exercisePlan,
-    lifePlan
-  },
   props: {
     title: {
       type: String,
       default: "本周健康评分"
     },
+    // 保留外部传入能力，以便在没有网络时仍可展示默认数据
     categories: {
       type: Array,
       default: () => ["睡眠", "运动", "饮食", "心率", "饮水"]
@@ -22,37 +15,79 @@ const _sfc_main = {
     scoreData: {
       type: Array,
       default: () => [83, 78, 82, 90, 87]
-    },
-    dietPlan: {
-      type: Array,
-      default: () => []
-    },
-    exercisePlan: {
-      type: Array,
-      default: () => []
-    },
-    lifePlan: {
-      type: Array,
-      default: () => []
     }
   },
+  data() {
+    return {
+      httpRadarData: [],
+      // HTTP 获取的雷达数据
+      showRetry: false,
+      // 是否显示重试遮罩
+      loading: false
+    };
+  },
   computed: {
-    totalScore() {
-      if (this.scoreData && this.scoreData.length > 0) {
-        const sum = this.scoreData.reduce((acc, val) => acc + val, 0);
-        return Math.round(sum / this.scoreData.length);
-      }
-      return 0;
-    },
+    // 优先使用 HTTP 数据，若无则回退到 props
     radarData() {
+      if (this.httpRadarData.length > 0) {
+        return this.httpRadarData;
+      }
       return this.categories.map((category, index) => ({
         label: category,
         value: this.scoreData[index] || 0,
         ratio: (this.scoreData[index] || 0) / 100
       }));
+    },
+    totalScore() {
+      const data = this.radarData;
+      if (data && data.length > 0) {
+        const sum = data.reduce((acc, item) => acc + item.value, 0);
+        return Math.round(sum / data.length);
+      }
+      return 0;
     }
   },
+  mounted() {
+    this.fetchRadarData();
+  },
   methods: {
+    // 模拟 HTTP 请求（带超时控制）
+    async fetchRadarData() {
+      this.showRetry = false;
+      this.loading = true;
+      try {
+        const data = await Promise.race([
+          this.mockHttpRequest(),
+          new Promise(
+            (_, reject) => setTimeout(() => reject(new Error("timeout")), 3e3)
+          )
+        ]);
+        this.httpRadarData = data;
+      } catch (e) {
+        common_vendor.index.__f__("error", "at components/pinfen/pinfen.vue:151", "获取雷达图数据失败", e);
+        this.showRetry = true;
+      } finally {
+        this.loading = false;
+      }
+    },
+    // 模拟 HTTP 请求返回占位数据
+    mockHttpRequest() {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve([
+            { label: "睡眠", value: 91, ratio: 0.91 },
+            { label: "情绪", value: 84, ratio: 0.84 },
+            { label: "运动", value: 78, ratio: 0.78 },
+            { label: "饮食", value: 88, ratio: 0.88 },
+            { label: "心率", value: 93, ratio: 0.93 }
+          ]);
+        }, 500);
+      });
+    },
+    // 重试点击
+    retryFetch() {
+      this.fetchRadarData();
+    },
     getLineStyle(index) {
       const angle = index * 72 * Math.PI / 180 - Math.PI / 2 - 50;
       return {
@@ -71,20 +106,8 @@ const _sfc_main = {
     }
   }
 };
-if (!Array) {
-  const _easycom_diet_plan2 = common_vendor.resolveComponent("diet-plan");
-  const _easycom_exercise_plan2 = common_vendor.resolveComponent("exercise-plan");
-  const _easycom_life_plan2 = common_vendor.resolveComponent("life-plan");
-  (_easycom_diet_plan2 + _easycom_exercise_plan2 + _easycom_life_plan2)();
-}
-const _easycom_diet_plan = () => "../diet-plan/diet-plan.js";
-const _easycom_exercise_plan = () => "../exercise-plan/exercise-plan.js";
-const _easycom_life_plan = () => "../life-plan/life-plan.js";
-if (!Math) {
-  (_easycom_diet_plan + _easycom_exercise_plan + _easycom_life_plan)();
-}
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return {
+  return common_vendor.e({
     a: common_vendor.t($props.title),
     b: common_vendor.t($options.totalScore),
     c: common_vendor.f(3, (level, k0, i0) => {
@@ -110,16 +133,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         b: common_vendor.s($options.getLineStyle(index))
       };
     }),
-    p: common_vendor.p({
-      planItems: $props.dietPlan
-    }),
-    q: common_vendor.p({
-      planItems: $props.exercisePlan
-    }),
-    r: common_vendor.p({
-      planItems: $props.lifePlan
-    })
-  };
+    p: $data.showRetry
+  }, $data.showRetry ? {
+    q: common_vendor.o((...args) => $options.retryFetch && $options.retryFetch(...args), "c8")
+  } : {});
 }
 const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
 wx.createComponent(Component);

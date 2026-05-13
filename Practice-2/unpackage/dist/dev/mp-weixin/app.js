@@ -4,9 +4,10 @@ const common_vendor = require("./common/vendor.js");
 if (!Math) {
   "./pages/index/index.js";
   "./pages/me/me.js";
-  "./pages/assisit/assisit.js";
   "./pages/market/market.js";
-  "./pages/index/phydetail/phydetail/phydetail.js";
+  "./pages/phydetail/phydetail.js";
+  "./pages/indexComponentsPages/AIGuidanceDiagnosis/AIGuidanceDiagnosis.js";
+  "./pages/indexComponentsPages/FamilyDoctor/FamilyDoctor/FamilyDoctor.js";
 }
 const _sfc_main = {
   onLaunch: function() {

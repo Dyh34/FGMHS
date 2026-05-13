@@ -2,9 +2,10 @@
   "pages": [
     "pages/index/index",
     "pages/me/me",
-    "pages/assisit/assisit",
     "pages/market/market",
-    "pages/index/phydetail/phydetail/phydetail"
+    "pages/phydetail/phydetail",
+    "pages/indexComponentsPages/AIGuidanceDiagnosis/AIGuidanceDiagnosis",
+    "pages/indexComponentsPages/FamilyDoctor/FamilyDoctor/FamilyDoctor"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -23,9 +24,9 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/assisit/assisit",
+        "pagePath": "pages/phydetail/phydetail",
         "iconPath": "/static/tubiao/2.png",
-        "text": "助理"
+        "text": "家庭"
       },
       {
         "pagePath": "pages/market/market",

@@ -1,0 +1,337 @@
+-- =========================
+-- 1. 系统配置表
+-- =========================
+CREATE TABLE sys_config (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
+
+    config_key VARCHAR(100) NOT NULL UNIQUE COMMENT '配置键名',
+
+    config_value TEXT COMMENT '配置值',
+
+    description VARCHAR(255) COMMENT '配置描述',
+
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
+
+
+
+-- =========================
+-- 2. 家庭组表
+-- =========================
+CREATE TABLE family_group (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '家庭ID',
+
+    family_name VARCHAR(100) NOT NULL COMMENT '家庭名称',
+
+    creator_id BIGINT COMMENT '创建人ID',
+
+    family_service_code VARCHAR(100) UNIQUE COMMENT '家庭服务编号',
+
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='家庭组表';
+
+
+
+-- =========================
+-- 3. 用户表
+-- =========================
+CREATE TABLE user (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '用户ID',
+
+    family_id BIGINT COMMENT '家庭组ID',
+
+    username VARCHAR(50) NOT NULL UNIQUE COMMENT '用户名',
+
+    password VARCHAR(255) NOT NULL COMMENT '密码',
+
+    phone VARCHAR(20) UNIQUE COMMENT '手机号',
+
+    birthday DATE COMMENT '生日',
+
+    avatar VARCHAR(500) COMMENT '头像',
+
+    gender TINYINT DEFAULT 0 COMMENT '性别 0未知 1男 2女',
+
+    age INT COMMENT '年龄',
+
+    role_type VARCHAR(20) DEFAULT 'member' COMMENT '家庭角色 member/admin',
+
+    nickname VARCHAR(50) COMMENT '昵称',
+
+    home_ai_cache TEXT COMMENT '首页AI建议缓存',
+
+    status TINYINT DEFAULT 1 COMMENT '状态 1正常 0禁用',
+
+    last_login_time DATETIME COMMENT '最后登录时间',
+
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+
+    CONSTRAINT fk_user_family
+        FOREIGN KEY (family_id)
+        REFERENCES family_group(id)
+        ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+
+
+
+-- =========================
+-- 4. 健康数据记录表（核心）
+-- =========================
+CREATE TABLE health_record (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '健康记录ID',
+
+    user_id BIGINT NOT NULL COMMENT '用户ID',
+
+    record_date DATE NOT NULL COMMENT '记录日期',
+
+    -- =================
+    -- 1. 体态类
+    -- =================
+    height DECIMAL(5,2) COMMENT '身高(cm)',
+
+    weight DECIMAL(5,2) COMMENT '体重(kg)',
+
+    bmi DECIMAL(5,2) COMMENT 'BMI',
+
+    waistline DECIMAL(5,2) COMMENT '腰围(cm)',
+
+    waist_hip_ratio DECIMAL(5,2) COMMENT '腰臀比',
+
+    body_fat_rate DECIMAL(5,2) COMMENT '体脂率(%)',
+
+    -- =================
+    -- 2. 生命体征
+    -- =================
+    systolic_pressure INT COMMENT '收缩压(mmHg)',
+
+    diastolic_pressure INT COMMENT '舒张压(mmHg)',
+
+    resting_heart_rate INT COMMENT '静息心率(次/分)',
+
+    blood_oxygen DECIMAL(5,2) COMMENT '血氧饱和度(%)',
+
+    body_temperature DECIMAL(4,2) COMMENT '基础体温(℃)',
+
+    -- =================
+    -- 3. 生化类
+    -- =================
+    fasting_blood_glucose DECIMAL(5,2) COMMENT '空腹血糖(mmol/L)',
+
+    uric_acid DECIMAL(6,2) COMMENT '尿酸(μmol/L)',
+
+    total_cholesterol DECIMAL(5,2) COMMENT '总胆固醇(mmol/L)',
+
+    urine_glucose VARCHAR(20) COMMENT '尿糖',
+
+    urine_protein VARCHAR(20) COMMENT '尿蛋白',
+
+    occult_blood VARCHAR(20) COMMENT '尿隐血',
+
+    -- =================
+    -- 4. 睡眠精力
+    -- =================
+    sleep_duration DECIMAL(4,2) COMMENT '睡眠时长(小时)',
+
+    sleep_time TIME COMMENT '入睡时间',
+
+    deep_sleep_rate DECIMAL(5,2) COMMENT '深睡眠占比(%)',
+
+    fatigue_level VARCHAR(20) COMMENT '疲惫程度',
+
+    -- =================
+    -- 5. 生活习惯
+    -- =================
+    weekly_exercise_count INT COMMENT '每周运动次数',
+
+    exercise_duration INT COMMENT '单次运动时长(分钟)',
+
+    smoking_amount VARCHAR(20) COMMENT '吸烟量',
+
+    drinking_frequency VARCHAR(20) COMMENT '饮酒频率',
+
+    daily_water_intake INT COMMENT '每日饮水量(ml)',
+
+    meal_regular_level VARCHAR(20) COMMENT '三餐规律度',
+
+    -- =================
+    -- 6. 主观症状
+    -- =================
+    dizziness BOOLEAN DEFAULT FALSE COMMENT '头晕',
+
+    palpitation BOOLEAN DEFAULT FALSE COMMENT '心慌',
+
+    chest_distress BOOLEAN DEFAULT FALSE COMMENT '胸闷',
+
+    joint_pain BOOLEAN DEFAULT FALSE COMMENT '颈肩腰关节疼痛',
+
+    insomnia BOOLEAN DEFAULT FALSE COMMENT '失眠',
+
+    stomach_discomfort BOOLEAN DEFAULT FALSE COMMENT '肠胃不适',
+
+    anxiety_emotion BOOLEAN DEFAULT FALSE COMMENT '情绪焦虑低落',
+
+    remark TEXT COMMENT '备注',
+
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+
+    CONSTRAINT fk_health_user
+        FOREIGN KEY (user_id)
+        REFERENCES user(id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='健康数据记录表';
+
+
+
+-- =========================
+-- 5. 病历主表
+-- =========================
+CREATE TABLE medical_record (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '病历ID',
+
+    user_id BIGINT NOT NULL COMMENT '用户ID',
+
+    family_id BIGINT COMMENT '家庭ID',
+
+    hospital_name VARCHAR(255) COMMENT '医院名称',
+
+    department_name VARCHAR(100) COMMENT '科室名称',
+
+    visit_date DATE COMMENT '就诊日期',
+
+    medical_type VARCHAR(50) COMMENT '病历类型',
+
+    diagnosis_result TEXT COMMENT '诊断结果',
+
+    doctor_advice TEXT COMMENT '医生建议',
+
+    remark TEXT COMMENT '备注',
+
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+
+    CONSTRAINT fk_medical_user
+        FOREIGN KEY (user_id)
+        REFERENCES user(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_medical_family
+        FOREIGN KEY (family_id)
+        REFERENCES family_group(id)
+        ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='病历主表';
+
+
+
+-- =========================
+-- 6. 病历附件表
+-- =========================
+CREATE TABLE medical_file (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '附件ID',
+
+    medical_record_id BIGINT NOT NULL COMMENT '病历ID',
+
+    file_type VARCHAR(50) COMMENT '文件类型 image/pdf/doc',
+
+    file_name VARCHAR(255) COMMENT '文件名称',
+
+    file_url VARCHAR(500) NOT NULL COMMENT '文件地址',
+
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+
+    CONSTRAINT fk_file_medical
+        FOREIGN KEY (medical_record_id)
+        REFERENCES medical_record(id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='病历附件表';
+
+
+
+-- =========================
+-- 7. AI分析表
+-- =========================
+CREATE TABLE ai_analysis (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT 'AI分析ID',
+
+    user_id BIGINT NOT NULL COMMENT '用户ID',
+
+    analysis_type VARCHAR(50) COMMENT '分析类型',
+
+    analysis_title VARCHAR(255) COMMENT '分析标题',
+
+    analysis_content TEXT COMMENT '分析内容',
+
+    risk_level VARCHAR(20) COMMENT '风险等级',
+
+    suggestion TEXT COMMENT 'AI建议',
+
+    source_record_ids TEXT COMMENT '关联健康记录ID',
+
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '生成时间',
+
+    CONSTRAINT fk_ai_user
+        FOREIGN KEY (user_id)
+        REFERENCES user(id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='AI分析表';
+
+
+
+-- =========================
+-- 8. 用户登录日志表（推荐）
+-- =========================
+CREATE TABLE user_login_log (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '日志ID',
+
+    user_id BIGINT NOT NULL COMMENT '用户ID',
+
+    login_ip VARCHAR(100) COMMENT '登录IP',
+
+    login_device VARCHAR(255) COMMENT '登录设备',
+
+    login_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
+
+    CONSTRAINT fk_login_user
+        FOREIGN KEY (user_id)
+        REFERENCES user(id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户登录日志表';
+
+
+
+-- =========================
+-- 9. 家庭邀请表（推荐）
+-- =========================
+CREATE TABLE family_invite (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '邀请ID',
+
+    family_id BIGINT NOT NULL COMMENT '家庭ID',
+
+    inviter_id BIGINT NOT NULL COMMENT '邀请人ID',
+
+    invite_code VARCHAR(50) UNIQUE COMMENT '邀请码',
+
+    expire_time DATETIME COMMENT '过期时间',
+
+    status TINYINT DEFAULT 0 COMMENT '状态 0未使用 1已使用 2已过期',
+
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+
+    CONSTRAINT fk_invite_family
+        FOREIGN KEY (family_id)
+        REFERENCES family_group(id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='家庭邀请表';

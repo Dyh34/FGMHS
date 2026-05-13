@@ -1,0 +1,499 @@
+-- =====================================
+-- 测试数据
+-- =====================================
+
+
+
+-- =========================
+-- 1. 系统配置表
+-- =========================
+INSERT INTO sys_config
+(config_key, config_value, description)
+VALUES
+('ai_model', 'DeepSeek-R1', '当前AI模型'),
+('home_banner', '健康生活每一天', '首页Banner文案'),
+('system_notice', '欢迎使用家庭健康管理系统', '系统公告');
+
+
+
+-- =========================
+-- 2. 家庭组表
+-- =========================
+INSERT INTO family_group
+(family_name, creator_id, family_service_code)
+VALUES
+('林家健康组', 1, 'FAMILY2026001'),
+('陈家健康组', 2, 'FAMILY2026002'),
+('王家健康组', 3, 'FAMILY2026003');
+
+
+
+-- =========================
+-- 3. 用户表
+-- =========================
+INSERT INTO user
+(
+family_id,
+username,
+password,
+phone,
+birthday,
+avatar,
+gender,
+age,
+role_type,
+nickname,
+home_ai_cache,
+status
+)
+VALUES
+(
+1,
+'linjianguo',
+'123456',
+'13800000001',
+'1975-03-12',
+'/static/avatar/father.jpg',
+1,
+50,
+'admin',
+'林建国',
+'近期血压偏高，建议减少高盐饮食。',
+1
+),
+
+(
+1,
+'chenmeifang',
+'123456',
+'13800000002',
+'1978-07-21',
+'/static/avatar/mother.jpg',
+2,
+47,
+'member',
+'陈美芳',
+'近期睡眠质量下降，建议规律作息。',
+1
+),
+
+(
+1,
+'linxiaoyu',
+'123456',
+'13800000003',
+'2015-09-05',
+'/static/avatar/child.jpg',
+1,
+10,
+'member',
+'林小宇',
+'近期运动量不足，建议增加户外活动。',
+1
+);
+
+
+
+-- =========================
+-- 4. 健康数据记录表
+-- =========================
+INSERT INTO health_record
+(
+user_id,
+record_date,
+
+height,
+weight,
+bmi,
+waistline,
+waist_hip_ratio,
+body_fat_rate,
+
+systolic_pressure,
+diastolic_pressure,
+resting_heart_rate,
+blood_oxygen,
+body_temperature,
+
+fasting_blood_glucose,
+uric_acid,
+total_cholesterol,
+
+urine_glucose,
+urine_protein,
+occult_blood,
+
+sleep_duration,
+sleep_time,
+deep_sleep_rate,
+fatigue_level,
+
+weekly_exercise_count,
+exercise_duration,
+smoking_amount,
+drinking_frequency,
+daily_water_intake,
+meal_regular_level,
+
+dizziness,
+palpitation,
+chest_distress,
+joint_pain,
+insomnia,
+stomach_discomfort,
+anxiety_emotion,
+
+remark
+)
+VALUES
+
+(
+1,
+'2026-05-13',
+
+175,
+78,
+25.5,
+92,
+0.95,
+24.5,
+
+138,
+90,
+82,
+97,
+36.6,
+
+6.1,
+430,
+5.8,
+
+'阴性',
+'阴性',
+'阴性',
+
+6.5,
+'23:30:00',
+18,
+'中度',
+
+2,
+30,
+'5支/天',
+'每周2次',
+1200,
+'一般',
+
+FALSE,
+TRUE,
+FALSE,
+TRUE,
+TRUE,
+FALSE,
+TRUE,
+
+'近期压力较大'
+),
+
+(
+2,
+'2026-05-13',
+
+162,
+58,
+22.1,
+75,
+0.82,
+28.3,
+
+118,
+76,
+72,
+98,
+36.5,
+
+5.2,
+320,
+4.7,
+
+'阴性',
+'阴性',
+'阴性',
+
+7.8,
+'22:30:00',
+30,
+'轻度',
+
+3,
+40,
+'不吸烟',
+'偶尔',
+1800,
+'规律',
+
+FALSE,
+FALSE,
+FALSE,
+FALSE,
+FALSE,
+FALSE,
+FALSE,
+
+'整体健康状态良好'
+),
+
+(
+3,
+'2026-05-13',
+
+138,
+36,
+18.9,
+60,
+0.78,
+16.5,
+
+102,
+65,
+88,
+99,
+36.7,
+
+4.8,
+210,
+3.9,
+
+'阴性',
+'阴性',
+'阴性',
+
+8.5,
+'21:00:00',
+35,
+'无',
+
+5,
+60,
+'不吸烟',
+'不饮酒',
+2000,
+'规律',
+
+FALSE,
+FALSE,
+FALSE,
+FALSE,
+FALSE,
+FALSE,
+FALSE,
+
+'儿童成长状态正常'
+);
+
+
+
+-- =========================
+-- 5. 病历主表
+-- =========================
+INSERT INTO medical_record
+(
+user_id,
+family_id,
+hospital_name,
+department_name,
+visit_date,
+medical_type,
+diagnosis_result,
+doctor_advice,
+remark
+)
+VALUES
+
+(
+1,
+1,
+'成都市第一人民医院',
+'心内科',
+'2026-04-18',
+'门诊',
+'轻度高血压',
+'控制饮食，减少熬夜，加强运动',
+'需要定期复查'
+),
+
+(
+2,
+1,
+'成都市妇幼保健院',
+'内科',
+'2026-03-10',
+'体检',
+'整体正常',
+'保持规律作息',
+'暂无异常'
+),
+
+(
+3,
+1,
+'成都市儿童医院',
+'儿科',
+'2026-02-22',
+'门诊',
+'轻微感冒',
+'多喝水，注意休息',
+'已恢复'
+);
+
+
+
+-- =========================
+-- 6. 病历附件表
+-- =========================
+INSERT INTO medical_file
+(
+medical_record_id,
+file_type,
+file_name,
+file_url
+)
+VALUES
+
+(
+1,
+'pdf',
+'高血压检查报告.pdf',
+'/upload/medical/report1.pdf'
+),
+
+(
+2,
+'image',
+'体检报告.jpg',
+'/upload/medical/report2.jpg'
+),
+
+(
+3,
+'image',
+'儿科门诊记录.png',
+'/upload/medical/report3.png'
+);
+
+
+
+-- =========================
+-- 7. AI分析表
+-- =========================
+INSERT INTO ai_analysis
+(
+user_id,
+analysis_type,
+analysis_title,
+analysis_content,
+risk_level,
+suggestion,
+source_record_ids
+)
+VALUES
+
+(
+1,
+'周报',
+'本周健康分析',
+'近期血压略高，睡眠质量下降，存在轻微焦虑。',
+'中风险',
+'建议增加有氧运动，减少熬夜，控制盐分摄入。',
+'1'
+),
+
+(
+2,
+'日报',
+'今日健康总结',
+'身体指标稳定，饮食与睡眠情况良好。',
+'低风险',
+'继续保持规律生活习惯。',
+'2'
+),
+
+(
+3,
+'成长分析',
+'儿童成长评估',
+'身高体重发育正常，运动活跃度较高。',
+'低风险',
+'继续保持均衡饮食与运动。',
+'3'
+);
+
+
+
+-- =========================
+-- 8. 用户登录日志表
+-- =========================
+INSERT INTO user_login_log
+(
+user_id,
+login_ip,
+login_device
+)
+VALUES
+
+(
+1,
+'192.168.1.10',
+'Windows Edge 浏览器'
+),
+
+(
+2,
+'192.168.1.11',
+'iPhone 微信小程序'
+),
+
+(
+3,
+'192.168.1.12',
+'Android 微信小程序'
+);
+
+
+
+-- =========================
+-- 9. 家庭邀请表
+-- =========================
+INSERT INTO family_invite
+(
+family_id,
+inviter_id,
+invite_code,
+expire_time,
+status
+)
+VALUES
+
+(
+1,
+1,
+'INVITE001',
+'2026-06-01 23:59:59',
+0
+),
+
+(
+2,
+2,
+'INVITE002',
+'2026-06-05 23:59:59',
+1
+),
+
+(
+3,
+3,
+'INVITE003',
+'2026-06-10 23:59:59',
+0
+);
