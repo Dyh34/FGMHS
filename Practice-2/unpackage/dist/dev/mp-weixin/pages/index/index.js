@@ -18,10 +18,10 @@ const _sfc_main = {
     ]);
     const serviceList = common_vendor.ref([
       { name: "AI导诊", icon: "/static/icon/ai.png", page: "/pages/indexComponentsPages/AIGuidanceDiagnosis/AIGuidanceDiagnosis" },
-      { name: "家庭医生", icon: "/static/icon/doctor.png", page: "/pages/family-doctor/list" },
-      { name: "家庭群聊", icon: "/static/icon/chat.png", page: "/pages/family-chat/chat" },
-      { name: "医疗地图", icon: "/static/icon/map.png", page: "/pages/medical-map/map" },
-      { name: "运动计划", icon: "/static/icon/sport.png", page: "/pages/exercise-plan/plan" },
+      { name: "家庭医生", icon: "/static/icon/doctor.png", page: "/pages/indexComponentsPages/FamilyDoctor/FamilyDoctor" },
+      { name: "家庭群聊", icon: "/static/icon/chat.png", page: "/pages/indexComponentsPages/FamilyChat/FamilyChat" },
+      { name: "医疗地图", icon: "/static/icon/map.png", page: "/pages/indexComponentsPages/MedicalMap/MedicalMap" },
+      { name: "运动计划", icon: "/static/icon/sport.png", page: "/pages/indexComponentsPages/ExercisePlan/ExercisePlan" },
       { name: "养生贴士", icon: "/static/icon/tips.png", page: "/pages/health-tips/tips" },
       { name: "用药提醒", icon: "/static/icon/med.png", page: "/pages/med-remind/remind" },
       { name: "健康档案", icon: "/static/icon/file.png", page: "/pages/health-record/record" },

@@ -31,7 +31,31 @@
 			}
 		},
 		{
-			"path": "pages/indexComponentsPages/FamilyDoctor/FamilyDoctor/FamilyDoctor",
+			"path": "pages/indexComponentsPages/FamilyDoctor/FamilyDoctor",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/indexComponentsPages/FamilyChat/FamilyChat",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/indexComponentsPages/MedicalMap/MedicalMap",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/indexComponentsPages/ExercisePlan/ExercisePlan",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/indexComponentsPages/HealthTips/HealthTips",
 			"style": {
 				"navigationBarTitleText": ""
 			}

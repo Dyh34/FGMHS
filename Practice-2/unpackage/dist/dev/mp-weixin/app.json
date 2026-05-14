@@ -5,7 +5,11 @@
     "pages/market/market",
     "pages/phydetail/phydetail",
     "pages/indexComponentsPages/AIGuidanceDiagnosis/AIGuidanceDiagnosis",
-    "pages/indexComponentsPages/FamilyDoctor/FamilyDoctor/FamilyDoctor"
+    "pages/indexComponentsPages/FamilyDoctor/FamilyDoctor",
+    "pages/indexComponentsPages/FamilyChat/FamilyChat",
+    "pages/indexComponentsPages/MedicalMap/MedicalMap",
+    "pages/indexComponentsPages/ExercisePlan/ExercisePlan",
+    "pages/indexComponentsPages/HealthTips/HealthTips"
   ],
   "window": {
     "navigationBarTextStyle": "black",

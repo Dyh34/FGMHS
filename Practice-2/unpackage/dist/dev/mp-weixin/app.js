@@ -7,7 +7,11 @@ if (!Math) {
   "./pages/market/market.js";
   "./pages/phydetail/phydetail.js";
   "./pages/indexComponentsPages/AIGuidanceDiagnosis/AIGuidanceDiagnosis.js";
-  "./pages/indexComponentsPages/FamilyDoctor/FamilyDoctor/FamilyDoctor.js";
+  "./pages/indexComponentsPages/FamilyDoctor/FamilyDoctor.js";
+  "./pages/indexComponentsPages/FamilyChat/FamilyChat.js";
+  "./pages/indexComponentsPages/MedicalMap/MedicalMap.js";
+  "./pages/indexComponentsPages/ExercisePlan/ExercisePlan.js";
+  "./pages/indexComponentsPages/HealthTips/HealthTips.js";
 }
 const _sfc_main = {
   onLaunch: function() {
