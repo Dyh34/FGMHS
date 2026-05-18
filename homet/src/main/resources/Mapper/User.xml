@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.hjmd.homet.mapper.UserMapper">
+    <insert id="regist" parameterType="cn.hjmd.homet.entity.LoginDTO">
+        INSERT INTO user (username, password)
+        VALUES (#{username}, #{password})
+    </insert>
+
+    <select id="selectUser" parameterType="String" resultType="cn.hjmd.homet.entity.LoginDTO">
+        SELECT id,username, password,nickname FROM user
+        WHERE username = #{username}
+    </select>
+
+
+    <select id="getInfoById" parameterType="int" resultType="cn.hjmd.homet.entity.UserMemberDTO">
+        SELECT id,username,nickname,gender,age from user where id = #{id}
+    </select>
+
+    <select id="getFaId" parameterType="int" resultType="int">
+        SELECT family_id from user where id = #{id}
+    </select>
+
+    <select id="getAllmember" parameterType="int" resultType="cn.hjmd.homet.entity.UserMemberDTO">
+        SELECT  id,username,nickname,gender,age from user where family_id=#{familyId}
+    </select>
+</mapper>

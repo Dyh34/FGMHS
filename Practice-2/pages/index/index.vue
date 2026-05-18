@@ -78,16 +78,16 @@ const banners = ref([
 ])
 
 const serviceList = ref([
-  { name: 'AI导诊', icon: '/static/icon/ai.png', page: '/pages/indexComponentsPages/AIGuidanceDiagnosis/AIGuidanceDiagnosis' },
-  { name: '家庭医生', icon: '/static/icon/doctor.png', page: '/pages/indexComponentsPages/FamilyDoctor/FamilyDoctor' },
-  { name: '家庭群聊', icon: '/static/icon/chat.png', page: '/pages/indexComponentsPages/FamilyChat/FamilyChat' },
-  { name: '医疗地图', icon: '/static/icon/map.png', page: '/pages/indexComponentsPages/MedicalMap/MedicalMap' },
-  { name: '运动计划', icon: '/static/icon/sport.png', page: '/pages/indexComponentsPages/ExercisePlan/ExercisePlan' },
-  { name: '养生贴士', icon: '/static/icon/tips.png', page: '/pages/health-tips/tips' },
-  { name: '用药提醒', icon: '/static/icon/med.png', page: '/pages/med-remind/remind' },
-  { name: '健康档案', icon: '/static/icon/file.png', page: '/pages/health-record/record' },
-  { name: '疫苗预约', icon: '/static/icon/vaccine.png', page: '/pages/vaccine/vaccine' },
-  { name: '体检报告', icon: '/static/icon/report.png', page: '/pages/report/report' }
+  { name: 'AI导诊', icon: '/static/icon/ai.png', page: '/subpackages/indexComponentsPages/pages/AIGuidanceDiagnosis/AIGuidanceDiagnosis' },
+  { name: '家庭医生', icon: '/static/icon/doctor.png', page: '/subpackages/indexComponentsPages/pages/FamilyDoctor/FamilyDoctor' },
+  { name: '家庭群聊', icon: '/static/icon/chat.png', page: '/subpackages/indexComponentsPages/pages/FamilyChat/FamilyChat' },
+  { name: '医疗地图', icon: '/static/icon/map.png', page: '/subpackages/indexComponentsPages/pages/MedicalMap/MedicalMap' },
+  { name: '运动计划', icon: '/static/icon/sport.png', page: '/subpackages/indexComponentsPages/pages/ExercisePlan/ExercisePlan' },
+  { name: '养生贴士', icon: '/static/icon/tips.png', page: '/subpackages/indexComponentsPages/pages/HealthTips/HealthTips' },
+  { name: '用药提醒', icon: '/static/icon/med.png', page: '/subpackages/indexComponentsPages/pages/MedicationReminder/MedicationReminder' },
+  { name: '健康档案', icon: '/static/icon/file.png', page: '/subpackages/indexComponentsPages/pages/HealthRecord/HealthRecord' },
+  { name: '疫苗预约', icon: '/static/icon/vaccine.png', page: '/subpackages/indexComponentsPages/pages/VaccineBooking/VaccineBooking' },
+  { name: '体检报告', icon: '/static/icon/report.png', page: '/subpackages/indexComponentsPages/pages/HealthReport/HealthReport' }
 ])
 
 // AI 生活提醒数据结构调整：包含分类建议列表

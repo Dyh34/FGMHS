@@ -4,12 +4,24 @@
     "pages/me/me",
     "pages/market/market",
     "pages/phydetail/phydetail",
-    "pages/indexComponentsPages/AIGuidanceDiagnosis/AIGuidanceDiagnosis",
-    "pages/indexComponentsPages/FamilyDoctor/FamilyDoctor",
-    "pages/indexComponentsPages/FamilyChat/FamilyChat",
-    "pages/indexComponentsPages/MedicalMap/MedicalMap",
-    "pages/indexComponentsPages/ExercisePlan/ExercisePlan",
-    "pages/indexComponentsPages/HealthTips/HealthTips"
+    "App/App"
+  ],
+  "subPackages": [
+    {
+      "root": "subpackages/indexComponentsPages",
+      "pages": [
+        "pages/AIGuidanceDiagnosis/AIGuidanceDiagnosis",
+        "pages/FamilyDoctor/FamilyDoctor",
+        "pages/FamilyChat/FamilyChat",
+        "pages/MedicalMap/MedicalMap",
+        "pages/ExercisePlan/ExercisePlan",
+        "pages/HealthTips/HealthTips",
+        "pages/MedicationReminder/MedicationReminder",
+        "pages/HealthRecord/HealthRecord",
+        "pages/VaccineBooking/VaccineBooking",
+        "pages/HealthReport/HealthReport"
+      ]
+    }
   ],
   "window": {
     "navigationBarTextStyle": "black",

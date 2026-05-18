@@ -56,7 +56,10 @@
         "setting" : {
             "urlCheck" : false
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+		 "optimization": {
+		      "subPackages": true // 开启分包优化，打包时会自动拆分代码
+		    }
     },
     "mp-alipay" : {
         "usingComponents" : true

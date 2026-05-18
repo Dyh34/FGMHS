@@ -1,8 +1,1 @@
-
-.weather-box.data-v-dc78d0f3 {
-}
-.greet.data-v-dc78d0f3 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 1px;
-}
+.greet.data-v-dc78d0f3{font-size:20px;font-weight:700;margin-bottom:1px}

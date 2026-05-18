@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.hjmd.homet.mapper.PhyDetailAIMapper">
+    <insert id="saveAImsg" parameterType="cn.hjmd.homet.entity.DetailAIMessageDTO">
+        INSERT INTO ai_analysis (user_id,analysis_title,analysis_content,create_time) values (#{userId},#{analysisTitle},#{analysisContent},#{createTime})
+    </insert>
+
+    <select id="getPhyAI" parameterType="int" resultType="cn.hjmd.homet.entity.DetailAIMessageDTO">
+        SELECT * FROM ai_analysis where user_id = #{id} ORDER BY create_time DESC LIMIT 1
+    </select>
+</mapper>

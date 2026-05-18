@@ -1,16 +1,2 @@
-"use strict";
-const _imports_0$3 = "/static/user1.jpg";
-const _imports_0$2 = "/static/doctor.png";
-const _imports_0$1 = "/static/avatar/mydoctor.png";
-const _imports_2 = "/static/avatar/doctor.png";
-const _imports_0 = "/static/avatar/ai.png";
-const _imports_1 = "/static/avatar/user1.png";
-const _imports_3 = "/static/avatar/user2.png";
-exports._imports_0 = _imports_0$3;
-exports._imports_0$1 = _imports_0$2;
-exports._imports_0$2 = _imports_0$1;
-exports._imports_0$3 = _imports_0;
-exports._imports_1 = _imports_1;
-exports._imports_2 = _imports_2;
-exports._imports_3 = _imports_3;
+"use strict";const t="/static/user1.jpg",s="/static/doctor.png",_="/static/avatar/mydoctor.png",o="/static/avatar/doctor.png",r="/static/avatar/ai.png",a="/static/avatar/user1.png",i="/static/avatar/user2.png";exports._imports_0=t;exports._imports_0$1=s;exports._imports_0$2=_;exports._imports_0$3=r;exports._imports_1=a;exports._imports_2=o;exports._imports_3=i;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/assets.js.map

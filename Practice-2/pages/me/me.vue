@@ -1,41 +1,40 @@
 <template>
+	<login 
+	v-if="showlogin==true"
+	@success = "handleLoginSuccess"
+	@close="showlogin=false"
+	></login>
+	
+ 
   <view class="page-mine">
     <!-- 用户信息卡片 -->
     <view class="profile-card">
       <view class="profile-top">
-        <image class="avatar" src="/static/user1.jpg" mode="aspectFill"></image>
+        <image class="avatar" :src="userInfo.avatar || '/static/user1.jpg'" mode="aspectFill"></image>
         <view class="profile-info">
-          <view class="nickname">{{ userInfo.nickname }}</view>
-          <view class="uid">ID：{{ userInfo.uid }}</view>
+          <view class="nickname" v-if="hasLogin">{{ username || '暂无昵称' }}</view>
+          <view class="nickname" v-else @click="goLogin">请登录</view>
+          <view class="uid" v-if="hasLogin">ID：{{ userInfo.uid || '' }}</view>
+          <view class="uid" v-else>登录查看个人信息</view>
         </view>
-        <view class="edit-btn" @click="goEditProfile">编辑资料</view>
+        <view class="edit-btn" @click="goEditProfile" :class="{disabled:!hasLogin}">编辑资料</view>
       </view>
       <view class="profile-stats">
         <view class="stat-item" @click="goHealthRecord">
-          <text class="stat-num">{{ userInfo.recordCount }}</text>
+          <text class="stat-num">{{ userInfo.recordCount || 0 }}</text>
           <text class="stat-label">健康档案</text>
         </view>
         <view class="stat-item" @click="goFamilyManagement">
-          <text class="stat-num">{{ familyMembers.length }}</text>
+          <text class="stat-num">{{ familyList.length }}</text>
           <text class="stat-label">家庭成员</text>
         </view>
         <view class="stat-item" @click="goMyDoctor">
-          <text class="stat-num">{{ userInfo.doctorCount }}</text>
+          <text class="stat-num">{{ userInfo.doctorCount || 0 }}</text>
           <text class="stat-label">我的医生</text>
         </view>
       </view>
     </view>
 
-    <!-- 家庭成员切换（简易版，跳转到管理页） -->
-    <view class="family-card" v-if="familyMembers.length > 0">
-      <view class="section-title">当前成员</view>
-      <view class="current-member">
-        <image class="member-avatar" :src="currentMember.avatar" mode="aspectFill"></image>
-        <text class="member-name">{{ currentMember.name }}</text>
-        <text class="member-tag" v-if="currentMember.isSelf">本人</text>
-        <view class="switch-btn" @click="goFamilyManagement">切换</view>
-      </view>
-    </view>
 
     <!-- 常用功能 -->
     <view class="menu-card">
@@ -58,35 +57,30 @@
     </view>
 
     <!-- 退出登录 -->
-    <view class="logout-btn" @click="handleLogout">退出登录</view>
+    <view class="logout-btn" v-if="hasLogin" @click="handleLogout">退出登录</view>
 
     <view class="bottom-space"></view>
   </view>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed,onMounted} from 'vue'
 
-// 模拟用户数据
-const userInfo = ref({
-  nickname: '林小雨',
-  uid: '20240513001',
-  avatar: '/static/user1.jpg',
-  recordCount: 12,
-  doctorCount: 2
-})
+// 全局登录状态
+const hasLogin = ref(false)
+const userInfo = ref({})
+const familyList = ref([])
+let showlogin = ref(false)
 
-// 家庭成员（可从全局状态或接口获取）
-const familyMembers = ref([
-  { id: '1', name: '林小雨', avatar: '/static/user1.jpg', isSelf: true },
-  { id: '2', name: '林建国', avatar: '/static/father.jpg', isSelf: false },
-  { id: '3', name: '陈秀英', avatar: '/static/mother.jpg', isSelf: false }
-])
+/* 登录成功 */
+const handleLoginSuccess = () => {
+	hasLogin.value = true
+	showlogin.value = false
+	initUserData()
+	uni.showToast({ title:'登录成功', icon:'success' })
+}
 
-// 当前成员（默认本人）
-const currentMember = computed(() => familyMembers.value.find(m => m.isSelf) || familyMembers.value[0])
 
-// 功能菜单
 const mainMenus = ref([
   { title: '我的收藏', icon: '/static/icon/star.png', page: '/pages/collect/collect' },
   { title: '健康报告', icon: '/static/icon/report.png', page: '/pages/report/list' },
@@ -99,42 +93,107 @@ const subMenus = ref([
   { title: '关于我们', icon: '/static/icon/about.png', page: '/pages/about/about' }
 ])
 
+const currentMember = computed(() => {
+  return familyList.value.find(item => item.isSelf) || familyList.value[0] || {}
+})
+
+// ================= 页面显示时执行（直接写，不用导入！！！） =================
+const onShow = () => {
+  const app = getApp()
+  hasLogin.value = app.globalData.hasLogin
+  
+  if (hasLogin.value) {
+    getUserInfo()
+  } else {
+    userInfo.value = {}
+    familyList.value = []
+  }
+}
+
+// ================= 以下代码不变 =================
+const getToken = () => uni.getStorageSync('token') || ''
+
+const getUserInfo = () => {
+  if(!hasLogin.value) return
+  uni.request({
+    url: '/api/user/info',
+    header: { token: getToken() },
+    success: (res) => {
+      if(res.data.code === 200) userInfo.value = res.data.data
+    }
+  })
+}
+
+const getFamilyList = () => {
+  if(!hasLogin.value) return
+  // username = uni.getStorageSync("username")
+  uni.request({
+    url: '/api/family/list',
+    header: { token: getToken() },
+    success: (res) => {
+      if(res.data.code === 200) familyList.value = res.data.data || []
+    }
+  })
+}
+
+const goLogin = () => { 
+	showlogin.value= true
+	console.log(showlogin)
+}
+
 const goEditProfile = () => {
-  uni.showToast({ title: '编辑个人资料', icon: 'none' })
+  if(!hasLogin.value){
+    uni.showToast({ title:'请先登录', icon:'none' })
+    return
+  }
+  uni.navigateTo({ url:'/pages/edit-profile/edit-profile' })
 }
 
-const goHealthRecord = () => {
-  uni.navigateTo({ url: '/pages/health-record/record' })
-}
-
-const goFamilyManagement = () => {
-  uni.navigateTo({ url: '/pages/family-management/management' })
-}
-
-const goMyDoctor = () => {
-  uni.navigateTo({ url: '/pages/my-doctor/doctor' })
-}
+const goHealthRecord = () => uni.navigateTo({ url:'/pages/health-record/record' })
+const goFamilyManagement = () => uni.navigateTo({ url:'/pages/family-management/management' })
+const goMyDoctor = () => uni.navigateTo({ url:'/pages/my-doctor/doctor' })
 
 const handleMenu = (item) => {
-  if (item.page) {
-    uni.navigateTo({ url: item.page })
-  } else {
-    uni.showToast({ title: `${item.title}开发中`, icon: 'none' })
+  if(!hasLogin.value){
+    uni.showToast({ title:'请先登录', icon:'none' })
+    return
   }
+  if(item.page) uni.navigateTo({ url: item.page })
 }
 
 const handleLogout = () => {
   uni.showModal({
-    title: '退出登录',
-    content: '确定要退出当前账号吗？',
-    success: (res) => {
-      if (res.confirm) {
-        // 执行退出逻辑
-        uni.showToast({ title: '已退出登录', icon: 'success' })
+    title:'确定退出？',
+    success: res => {
+      if(res.confirm){
+        const app = getApp()
+        app.globalData.hasLogin = false
+        uni.removeStorageSync('token')
+        hasLogin.value = false
+        userInfo.value = {}
+        familyList.value = []		
+		uni.reLaunch({
+		  url: '/pages/me/me'
+		})
+        uni.showToast({ title:'已退出登录' })
+
       }
     }
   })
 }
+onMounted(() => {
+	const token = uni.getStorageSync('token')
+	if(token){
+		hasLogin.value = true
+	}
+})
+
+onShow(()=>{
+	const token = uni.getStorageSync('token')
+	if(token){
+		hasLogin.value = true
+	}
+})
 </script>
 
 <style lang="scss" scoped>
@@ -185,6 +244,10 @@ page {
   background: #e8f8ee;
   padding: 10rpx 24rpx;
   border-radius: 30rpx;
+}
+.edit-btn.disabled{
+  opacity: 0.5;
+  pointer-events: none;
 }
 .profile-stats {
   display: flex;

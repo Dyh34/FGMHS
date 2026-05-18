@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "",
   "usingComponents": {
+    "login": "../../components/login/login",
     "pinfen": "../../components/pinfen/pinfen"
   }
 }

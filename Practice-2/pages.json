@@ -25,42 +25,54 @@
 			}
 		},
 		{
-			"path": "pages/indexComponentsPages/AIGuidanceDiagnosis/AIGuidanceDiagnosis",
+			"path": "App",
 			"style": {
 				"navigationBarTitleText": ""
 			}
 		},
 		{
-			"path": "pages/indexComponentsPages/FamilyDoctor/FamilyDoctor",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		{
-			"path": "pages/indexComponentsPages/FamilyChat/FamilyChat",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		{
-			"path": "pages/indexComponentsPages/MedicalMap/MedicalMap",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		{
-			"path": "pages/indexComponentsPages/ExercisePlan/ExercisePlan",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		{
-			"path": "pages/indexComponentsPages/HealthTips/HealthTips",
+			"path": "test/test",
 			"style": {
 				"navigationBarTitleText": ""
 			}
 		}
-
+	],
+	"subPackages": [
+	  {
+		  "root": "subpackages/indexComponentsPages",
+		  "pages": [
+		  	{
+		  		"path": "pages/AIGuidanceDiagnosis/AIGuidanceDiagnosis"
+		  	},
+			{
+				"path": "pages/FamilyDoctor/FamilyDoctor"
+			},
+			{
+				"path": "pages/FamilyChat/FamilyChat"
+			},
+			{
+				"path": "pages/MedicalMap/MedicalMap"
+			},
+			{
+				"path": "pages/ExercisePlan/ExercisePlan"
+			},
+			{
+				"path": "pages/HealthTips/HealthTips"
+			},
+			{
+				"path": "pages/MedicationReminder/MedicationReminder"
+			},
+			{
+				"path": "pages/HealthRecord/HealthRecord"
+			},
+			{
+				"path": "pages/VaccineBooking/VaccineBooking"
+			},
+			{
+				"path": "pages/HealthReport/HealthReport"
+			}
+		  ]
+	  }
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
