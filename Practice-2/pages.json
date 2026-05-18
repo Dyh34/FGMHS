@@ -25,12 +25,6 @@
 			}
 		},
 		{
-			"path": "App",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		{
 			"path": "test/test",
 			"style": {
 				"navigationBarTitleText": ""

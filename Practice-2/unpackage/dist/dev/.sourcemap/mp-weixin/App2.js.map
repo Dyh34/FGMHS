@@ -1,0 +1,1 @@
+{"version":3,"file":"App2.js","sources":["../../../../Hbuilder/HBuilderX/plugins/uniapp-cli-vite/uniPage:/QXBwLnZ1ZQ"],"sourcesContent":["import MiniProgramPage from 'D:/HBproject/P3/FGMHS/Practice-2/App.vue'\nwx.createPage(MiniProgramPage)"],"names":["MiniProgramPage"],"mappings":"0CACA,GAAG,WAAWA,EAAe,SAAA"}

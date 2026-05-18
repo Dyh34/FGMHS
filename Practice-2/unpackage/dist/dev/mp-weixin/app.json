@@ -4,7 +4,7 @@
     "pages/me/me",
     "pages/market/market",
     "pages/phydetail/phydetail",
-    "App/App"
+    "test/test"
   ],
   "subPackages": [
     {
