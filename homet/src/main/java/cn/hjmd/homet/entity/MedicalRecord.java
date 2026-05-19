@@ -79,4 +79,18 @@ public class MedicalRecord {
     public void setDoctorAdvice(String doctorAdvice) {
         this.doctorAdvice = doctorAdvice;
     }
+
+    @Override
+    public String toString() {
+        return "MedicalRecord{" +
+                "hospitalName='" + hospitalName + '\'' +
+                ", departmentName='" + departmentName + '\'' +
+                ", visitDate=" + visitDate +
+                ", medicalType='" + medicalType + '\'' +
+                ", doctorName='" + doctorName + '\'' +
+                ", mainReason='" + mainReason + '\'' +
+                ", diagnosisResult='" + diagnosisResult + '\'' +
+                ", doctorAdvice='" + doctorAdvice + '\'' +
+                '}';
+    }
 }

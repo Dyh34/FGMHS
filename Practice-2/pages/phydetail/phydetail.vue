@@ -209,7 +209,7 @@
 				<view class="asitotal">
 					<pinfen 
 						:categories="['睡眠', '情绪', '运动', '饮食', '心率']"
-						:scoreData="[10, 100, 100, 100, 100]"
+						:scoreData="[100, 100, 100, 100, 100]"
 					/>
 				</view>
 			</view>
@@ -359,13 +359,12 @@ onMounted(() => {
 
 })
 onShow(()=>{
+	currentMemberName
 	const token = uni.getStorageSync('token')
-	if(token){
-		hasLogin.value = true
-		initUserData()
-	}	
-	else
 	initUserData()
+	if(token)
+	{hasLogin=true}
+
 })
 
 /* 登录成功 */
@@ -373,6 +372,9 @@ const handleLoginSuccess = () => {
 	hasLogin.value = true
 	showlogin.value = false
 	initUserData()
+	uni.reLaunch({
+	  url: '/pages/phydetail/phydetail'
+	})
 	uni.showToast({ title:'登录成功', icon:'success' })
 }
 
@@ -390,7 +392,7 @@ const initUserData = async () => {
 			return
 		}
 		const data = res.data.data
-		nickname.value = currentMemberName
+		nickname.value = currentMemberName.value
 		age.value = data.self.age+"岁"
 		gender.value = data.self.gender == 1 ? "男" : "女"
 		familyMembers.value = data.familyList

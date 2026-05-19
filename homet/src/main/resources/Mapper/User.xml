@@ -15,7 +15,7 @@
 
 
     <select id="getInfoById" parameterType="int" resultType="cn.hjmd.homet.entity.UserMemberDTO">
-        SELECT id,username,nickname,gender,age from user where id = #{id}
+        SELECT * from user where id = #{id}
     </select>
 
     <select id="getFaId" parameterType="int" resultType="int">

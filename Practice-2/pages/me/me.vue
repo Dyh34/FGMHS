@@ -12,9 +12,9 @@
       <view class="profile-top">
         <image class="avatar" :src="userInfo.avatar || '/static/user1.jpg'" mode="aspectFill"></image>
         <view class="profile-info">
-          <view class="nickname" v-if="hasLogin">{{ username || '暂无昵称' }}</view>
+          <view class="nickname" v-if="hasLogin">{{ userInfo.nickname || '暂无昵称' }}</view>
           <view class="nickname" v-else @click="goLogin">请登录</view>
-          <view class="uid" v-if="hasLogin">ID：{{ userInfo.uid || '' }}</view>
+          <view class="uid" v-if="hasLogin">ID：{{ userInfo.id || '' }}</view>
           <view class="uid" v-else>登录查看个人信息</view>
         </view>
         <view class="edit-btn" @click="goEditProfile" :class="{disabled:!hasLogin}">编辑资料</view>
@@ -30,7 +30,7 @@
         </view>
         <view class="stat-item" @click="goMyDoctor">
           <text class="stat-num">{{ userInfo.doctorCount || 0 }}</text>
-          <text class="stat-label">我的医生</text>
+          <text class="stat-label">家庭医生</text>
         </view>
       </view>
     </view>
@@ -76,8 +76,8 @@ let showlogin = ref(false)
 const handleLoginSuccess = () => {
 	hasLogin.value = true
 	showlogin.value = false
-	initUserData()
 	uni.showToast({ title:'登录成功', icon:'success' })
+	getUserInfo()
 }
 
 
@@ -101,13 +101,7 @@ const currentMember = computed(() => {
 const onShow = () => {
   const app = getApp()
   hasLogin.value = app.globalData.hasLogin
-  
-  if (hasLogin.value) {
     getUserInfo()
-  } else {
-    userInfo.value = {}
-    familyList.value = []
-  }
 }
 
 // ================= 以下代码不变 =================
@@ -116,24 +110,19 @@ const getToken = () => uni.getStorageSync('token') || ''
 const getUserInfo = () => {
   if(!hasLogin.value) return
   uni.request({
-    url: '/api/user/info',
+    url: 'http://localhost:8080/family/info',
     header: { token: getToken() },
     success: (res) => {
-      if(res.data.code === 200) userInfo.value = res.data.data
+      if(res.data.code === 200) userInfo.value = res.data.data.self
+	  familyList.value=res.data.data.familyList
+	  console.log(userInfo)
     }
   })
 }
 
 const getFamilyList = () => {
   if(!hasLogin.value) return
-  // username = uni.getStorageSync("username")
-  uni.request({
-    url: '/api/family/list',
-    header: { token: getToken() },
-    success: (res) => {
-      if(res.data.code === 200) familyList.value = res.data.data || []
-    }
-  })
+
 }
 
 const goLogin = () => { 
@@ -192,6 +181,7 @@ onShow(()=>{
 	const token = uni.getStorageSync('token')
 	if(token){
 		hasLogin.value = true
+		goLogin()
 	}
 })
 </script>
